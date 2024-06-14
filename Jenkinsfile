@@ -49,7 +49,7 @@ pipeline {
             }
             stage ('Trivy FS Scan') {
                 steps{
-                    sh ‘trivy fs. > codescan.txt’
+                    sh ‘trivy fs .’
                 }
             }
             stage ('Sonarqube Analysis') {
