@@ -24,5 +24,10 @@ pipeline {
                 extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/offdaytest.git']])
             }
         }
+        stage ('Installing Maven Packages'){
+            steps {
+                sh 'mvn clean install'
+            }
+        }
     }
 }
