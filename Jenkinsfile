@@ -2,7 +2,7 @@ pipeline {
     agent any 
     tools {
         jdk 'jdk17'
-        mvn 'mvn3'
+        maven 'mvn3'
     }
     environment {
         APP_NAME = "offdaytest"
