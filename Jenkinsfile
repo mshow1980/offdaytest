@@ -26,7 +26,9 @@ pipeline {
         }
         stage ('Installing Maven Packages'){
             steps {
-                sh 'mvn clean install'
+                script{
+                    sh 'mvn clean install'
+                }
             }
         }
         stage ('OWASP Dependecy Checks'){
