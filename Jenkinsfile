@@ -28,39 +28,13 @@ pipeline {
             steps {
                 script{
                     sh 'mvn clean install'
-                }
-            }
-        }
-        stage ('OWASP Dependecy Checks'){
-            steps {
-                script{
-                dependencyCheck additionalArguments: ''' 
-                    -o "./" 
-                    -s "./"
-                    -f "ALL" 
-                    --prettyPrint''', odcInstallation: 'OWASP-DC'
-                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                    }
                 }
             }
         stage ('Testing Application') {
             steps{
                 script {
                     sh 'mvn test'
-                }
-            }
-            stage ('Trivy FS Scan') {
-                steps{
-                    sh ‘trivy fs .’
-                }
-            }
-            stage ('Sonarqube Analysis') {
-                steps {
-                    script {
-                        withSonarQubeEnv(credentialsId: 'SOnar-login') {
-                            sh 'mvn sonar:sonar'
-                            }
-                        }
-                    }
                 }
             }
         }
