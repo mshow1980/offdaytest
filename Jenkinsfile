@@ -38,9 +38,9 @@ pipeline {
                     -f "ALL" 
                     --prettyPrint''', odcInstallation: 'OWASP-DC'
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                    }
                 }
             }
-        }
         stage ('Testing Application') {
             steps{
                 script {
