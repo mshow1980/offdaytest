@@ -38,7 +38,6 @@ pipeline {
                     -f "ALL" 
                     --prettyPrint''', odcInstallation: 'OWASP-DC'
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-                    }
                 }
             }
         stage ('Testing Application') {
@@ -57,6 +56,7 @@ pipeline {
                     script {
                         withSonarQubeEnv(credentialsId: 'SOnar-login') {
                             sh 'mvn sonar:sonar'
+                            }
                         }
                     }
                 }
