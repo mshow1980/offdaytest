@@ -94,7 +94,7 @@ pipeline {
                 }
             }
         }
-        stage ('Deleting Images & docker logout') {
+        stage ('Deleting Images && docker logout') {
             steps {
                 script {
                     sh """
