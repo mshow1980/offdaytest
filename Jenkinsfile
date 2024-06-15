@@ -91,6 +91,7 @@ pipeline {
             steps {
                 script {
                     sh " trivy image ${IMAGE_NAME}  > ImageScanResult.txt "
+                }
             }
         }
         stage ('Deleting Images & docker logout') {
@@ -101,7 +102,6 @@ pipeline {
                     docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
                     docker logout
                     """
-                    }
                 }
             }
         }
