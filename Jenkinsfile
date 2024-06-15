@@ -76,10 +76,10 @@ pipeline {
         stage ('Docker Build') {
             steps {
                 script {
-                withDockerRegistry(credentialsId: 'docker-login', toolName: 'docker') {
+                withDockerRegistry(credentialsId: 'docker-login', toolName: 'Docker') {
                     docker_image = docker.build "${IMAGE_NAME}"
                     }
-                withDockerRegistry(credentialsId: 'docker-login', toolName: 'docker') {
+                withDockerRegistry(credentialsId: 'docker-login', toolName: 'Docker') {
                     docker_image.push("${BUILD_NUMBER}")
                     docker_image.push('latest')
                     docker_image.push("${IMAGE_TAG}")
