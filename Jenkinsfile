@@ -53,7 +53,7 @@ pipeline {
         stage ('Trivy FS Scan'){
             steps {
                 script {
-                    sh ‘trivy fs. -o scanresult.txt’
+                    sh ‘trivy fs.’
                 }
             }
         }
