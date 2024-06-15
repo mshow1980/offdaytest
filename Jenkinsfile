@@ -91,7 +91,9 @@ pipeline {
             steps {
                 script {
                     sh """
-                    docker rmi docker_image
+                    docker rmi ("${IMAGE_NAME}")
+                    docker rmi ("${IMAGE_NAME}" + "('latest')")
+                    docker rmi ("${IMAGE_NAME}" - "${BUILD_NUMBER}")
                     docker logout
                     """
                 }
