@@ -66,5 +66,12 @@ pipeline {
                 }
             }
         }
+        stage ('Quality Analysis') {
+            steps {
+                script {
+                    waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-login'
+                }
+            }
+        }
     }
 }
