@@ -38,5 +38,33 @@ pipeline {
                 }
             }
         }
+        stage ('OWASP Dependecy Checks'){
+            steps {
+                script{
+                dependencyCheck additionalArguments: ''' 
+                    -o "./" 
+                    -s "./"
+                    -f "ALL" 
+                    --prettyPrint''', odcInstallation: 'OWASP-DC'
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+                }
+            }
+        }
+        stage ('Trivy FS Scan'){
+            steps {
+                script {
+                    sh ‘trivy fs . > codescan.txt’
+                }
+            }
+        }
+        stage ('SOanrqube Analysis'){
+            steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'SOnar-login') {
+                        sh ' mvn sonar:sonar'
+                    }
+                }
+            }
+        }
     }
 }
