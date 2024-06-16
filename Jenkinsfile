@@ -13,35 +13,32 @@ pipeline {
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
     stages {
-        stage ('CleanWS') {
+        stage ('Clean WS'){
             steps {
-                cleanWs()
+                script {
+                     cleanWs()
+                }
             }
         }
-        stage ('CheckOut SCM') {
+        stage ('Checkout SCM'){
             steps {
+                script {
                 checkout scmGit(branches: [[name: '*/main']], 
                 extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/offdaytest.git']])
+                }
             }
         }
         stage ('Installing Maven Packages'){
             steps {
-                script{
-                    sh 'mvn clean install'
-                    }
-                }
-            }
-        stage ('Testing Application') {
-            steps{
                 script {
-                    sh 'mvn test'
+                    sh 'mvn clean install'
                 }
             }
         }
-        stage ('OWASP Dependecy Checks'){
+        stage ('Dependency Checks') {
             steps {
-                script{
-                dependencyCheck additionalArguments: ''' 
+                script {
+                    dependencyCheck additionalArguments: ''' 
                     -o "./" 
                     -s "./"
                     -f "ALL" 
@@ -50,58 +47,26 @@ pipeline {
                 }
             }
         }
-        stage ('Trivy FS Scan'){
+        stage ('Trivy FS Scan') {
             steps {
                 script {
                     sh " trivy fs . > scanresult.txt"
                 }
             }
         }
-        stage ('SOanrqube Analysis'){
+        stage ('SOnarqube Analysis') {
             steps {
-                script {
+                script{
                     withSonarQubeEnv(credentialsId: 'SOnar-login') {
                         sh ' mvn sonar:sonar'
                     }
                 }
             }
         }
-        stage ('Quality Analysis') {
+        stage ('Quality Analysis'){
             steps {
                 script {
                     waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-login'
-                }
-            }
-        }
-        stage ('Docker Build') {
-            steps {
-                script {
-                withDockerRegistry(credentialsId: 'docker-login', toolName: 'Docker') {
-                    docker_image = docker.build "${IMAGE_NAME}"
-                    }
-                withDockerRegistry(credentialsId: 'docker-login', toolName: 'Docker') {
-                    docker_image.push("${BUILD_NUMBER}")
-                    docker_image.push('latest')
-                    docker_image.push("${IMAGE_TAG}")
-                    }
-                }
-            }
-        }
-        stage ('Trivy Image Scan'){
-            steps {
-                script {
-                    sh " trivy image ${IMAGE_NAME}  > ImageScanResult.txt "
-                }
-            }
-        }
-        stage ('Deleting Images & docker logout') {
-            steps {
-                script {
-                    sh """
-                    docker rmi ${IMAGE_NAME}:latest
-                    docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
-                    docker logout
-                    """
                 }
             }
         }
