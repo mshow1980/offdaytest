@@ -2,6 +2,7 @@ pipeline {
     agent any 
     tools {
         jdk 'jdk17'
+        maven 'mvn3'
     }
     environment {
         APP_NAME = "friday-saturday"
