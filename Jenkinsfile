@@ -5,7 +5,7 @@ pipeline {
         maven 'mvn3'
     }
     environment {
-        APP_NAME = "offdaytest"
+        APP_NAME = "friday-saturday"
         RELEASE = "1.2.0"
         DOCKER_USER = "mshow1980"
         REGISTRY_CREDS = "docker-login"
