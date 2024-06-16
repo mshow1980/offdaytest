@@ -9,7 +9,7 @@ public class DemoAppController {
 
     @GetMapping("/")
     public String hello(Model model) {
-        model.addAttribute("message", "Hello World! This is a sample application to demonstrate an end-2-end DevOps Pipeline");
+        model.addAttribute("message", "Hello World! This is a sample application to demonstrate an end-2-end DevOps Pipeline By cion_SCope Devops/Devsecops Automation Deployment");
         return "index";
     }
 
