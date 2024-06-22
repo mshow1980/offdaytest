@@ -11,6 +11,7 @@ pipeline {
         REGISTRY_CREDS = "docker-login"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+        JENKINS_API_TOKEN = credentials ('JENKINS_API_TOKEN')
     }
     stages {
         stage ('CleanWS') {
@@ -102,6 +103,13 @@ pipeline {
                     docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
                     docker logout
                     """
+                }
+            }
+        }
+        stage ('Updating Manifest') {
+            steps {
+                script {
+                sh "curl -X POST http://34.239.248.138:8080/job/updating-job/buildWithParameters —user admin:${JENKINS_API_TOKEN}token=Authentication-Token —data  ‘IMAGE_TAG=${IMAGE_TAG}’"
                 }
             }
         }
