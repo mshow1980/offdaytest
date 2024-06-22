@@ -106,12 +106,5 @@ pipeline {
                 }
             }
         }
-        stage ('Triggering Next Job'){
-            steps {
-                script {
-                     sh "curl -v -k --user Scion_Scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://54.174.211.144:8080/job/second-line/buildWithParameters?token=scion-scope'"
-                }
-            }
-        }
     }
 }
