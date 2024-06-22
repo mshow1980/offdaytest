@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        APP_NAME = "friday-saturday"
+        APP_NAME = "verified-saturday"
         RELEASE = "1.2.0"
         DOCKER_USER = "mshow1980"
         REGISTRY_CREDS = "docker-login"
