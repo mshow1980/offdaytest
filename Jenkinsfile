@@ -109,7 +109,7 @@ pipeline {
         stage ('Updating Manifest') {
             steps {
                 script {
-                sh "curl -v -k —user Mike:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'contact-type: application/x-ww-form-urlencoded'  —data  'IMAGE_TAG=${IMAGE_TAG}' 'http://34.239.248.138:8080/job/updating-job/buildWithParameters?token=Authentication-Token' "
+                sh "curl -v -k —user Scion_Scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'contact-type: application/x-ww-form-urlencoded'  —data  'IMAGE_TAG=${IMAGE_TAG}' 'http://34.239.248.138:8080/job/updating-job/buildWithParameters?token=Authentication-Token' "
                 }
             }
         }
