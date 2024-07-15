@@ -5,13 +5,13 @@ pipeline {
         maven 'mvn3'
     }
     environment {
-        APP_NAME = "true-pass"
+        APP_NAME = "friday-saturday"
         RELEASE = "1.2.0"
         DOCKER_USER = "mshow1980"
         REGISTRY_CREDS = "docker-login"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-        JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
+        JENKINS_API_TOKEN = credentials ('JENKINS_API_TOKEN')
     }
     stages {
         stage ('CleanWS') {
@@ -106,10 +106,10 @@ pipeline {
                 }
             }
         }
-        stage ('Triggering Next Job'){
+        stage ('Updating Manifest') {
             steps {
                 script {
-                     sh "curl -v -k --user scion_scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://3.233.233.223:8080/job/second-run/buildWithParameters?token=Authentication-Token'"
+                     sh "curl -v -k --user Scion_Scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://54.174.211.144:8080/job/second-line/buildWithParameters?token=scion-scope'"
                 }
             }
         }
