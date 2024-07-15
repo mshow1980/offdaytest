@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dmancloud.dinesh</groupId>
-	<artifactId>demoapp</artifactId>
+	<artifactId>scionapp</artifactId>
 	<version>1.0.0</version>
-	<name>demoapp</name>
-	<description>Demo App for DevSecOps</description>
+	<name>scionapp</name>
+	<description>Scion Scope DevSecOps</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -73,7 +73,7 @@
                         <goal>repackage</goal>
                     </goals>
                     <configuration>
-                        <finalName>demoapp</finalName>
+                        <finalName>scionapp</finalName>
                     </configuration>
                 </execution>
             </executions>
