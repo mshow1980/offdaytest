@@ -5,7 +5,7 @@ pipeline {
         maven 'mvn3'
     }
     environment {
-        APP_NAME = "friday-saturday"
+        APP_NAME = "truepass"
         RELEASE = "1.2.0"
         DOCKER_USER = "mshow1980"
         REGISTRY_CREDS = "docker-login"
@@ -109,7 +109,7 @@ pipeline {
         stage ('Updating Manifest') {
             steps {
                 script {
-                     sh "curl -v -k --user Scion_Scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://54.174.211.144:8080/job/second-line/buildWithParameters?token=scion-scope'"
+                     sh "curl -v -k --user scion_scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://3.233.233.223:8080/job/second-line/buildWithParameters?token=Authentication-Token'"
                 }
             }
         }
