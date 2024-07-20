@@ -7,6 +7,8 @@ pipeline {
         REGISTRY_CREDS = "docker-login"
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+        GIT_USER_NAME = "mshow1980"
+        GIT_REPO_NAME = "offdaytest"
     }
     stages{
         stage ('CleanWS') {
@@ -26,10 +28,11 @@ pipeline {
         stage ('Updating manifest') {
             steps {
                 script {
+                    withCredentials([string(credentialsId: 'GITHUB_TOKEN', variable: 'GITHUB']) {
                     sh 
                     """
-                        git config --global user.name "mshow1980"
-                        git config --global user.email "mshow1980@aol.com"
+                        git config  user.name "mshow1980"
+                        git config  user.email "mshow1980@aol.com"
                         git switch deployment
                         cat deployment.yaml
                         sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' deployment.yaml
@@ -37,7 +40,9 @@ pipeline {
                         git add deployment.yaml
                         git commit -m 'Updated the deployment file'
                         git push origin deployment
+                        git push https://${GITHUB}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:deployment
                         """
+                    }
                 }
             }
         }
