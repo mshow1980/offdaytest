@@ -11,7 +11,7 @@
 	<groupId>com.dmancloud.dinesh</groupId>
 	<artifactId>scionapp</artifactId>
 	<version>1.0.0</version>
-	<name>scionapp</name>
+	<name>devops_ci-cdapp</name>
 	<description>Scion Scope DevSecOps</description>
 	<properties>
 		<java.version>17</java.version>
@@ -73,7 +73,7 @@
                         <goal>repackage</goal>
                     </goals>
                     <configuration>
-                        <finalName>scionapp</finalName>
+                        <finalName>devops_ci-cdapp</finalName>
                     </configuration>
                 </execution>
             </executions>

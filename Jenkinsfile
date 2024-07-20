@@ -5,7 +5,7 @@ pipeline {
         maven 'mvn3'
     }
     environment {
-        APP_NAME = "truepass"
+        APP_NAME = "devops_ci-cd"
         RELEASE = "1.2.0"
         DOCKER_USER = "mshow1980"
         REGISTRY_CREDS = "docker-login"
@@ -46,7 +46,7 @@ pipeline {
                     -o "./" 
                     -s "./"
                     -f "ALL" 
-                    --prettyPrint''', odcInstallation: 'OWASP-DC'
+                    --prettyPrint''', odcInstallation: 'OWASP_DC'
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
         stage ('SOanrqube Analysis'){
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: '	SOnar-Token') {
+                    withSonarQubeEnv(credentialsId: '	SOnar_Token') {
                         sh ' mvn sonar:sonar'
                     }
                 }
@@ -70,7 +70,7 @@ pipeline {
         stage ('Quality Analysis') {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: '	SOnar-Token'
+                    waitForQualityGate abortPipeline: false, credentialsId: '	SOnar_Token'
                 }
             }
         }
@@ -80,7 +80,7 @@ pipeline {
                 withDockerRegistry(credentialsId: 'docker-login', toolName: 'docker') {
                     docker_image = docker.build "${IMAGE_NAME}"
                     }
-                withDockerRegistry(credentialsId: 'docker-login', toolName: 'docker') {
+                withDockerRegistry(credentialsId: 'docker_login', toolName: 'Docker') {
                     docker_image.push("${BUILD_NUMBER}")
                     docker_image.push('latest')
                     docker_image.push("${IMAGE_TAG}")
@@ -109,7 +109,7 @@ pipeline {
         stage ('Updating Manifest') {
             steps {
                 script {
-                     sh "curl -v -k --user Scion_Scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://3.233.233.223:8080/job/second-line/buildWithParameters?token=Authentication-Token'"
+                    sh "curl -v -k --user Scion_Scope:${JENKINS_API_TOKEN} -X POST -H 'cache-control: no-cache' -H 'content-type: application/x-www-form-urlencoded' --data 'IMAGE_TAG=${IMAGE_TAG}' 'http://44.220.248.216:8080/job/devop-ci-cd2/buildWithParameters?token=Authentication_Token'"
                 }
             }
         }

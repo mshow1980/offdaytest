@@ -5,6 +5,6 @@ RUN mvn clean install
 
 FROM eclipse-temurin:17.0.6_10-jdk
 WORKDIR /app
-COPY --from=build /app/target/scionapp.jar /app/
+COPY --from=build /app/target/devops_ci-cdapp.jar /app/
 EXPOSE 8080
-CMD ["java", "-jar","scionapp.jar"]
+CMD ["java", "-jar","devops_ci-cdapp.jar"]
